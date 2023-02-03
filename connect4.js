@@ -9,7 +9,7 @@ const WIDTH = 7;
 const HEIGHT = 6;
 
 let currPlayer = 2; // active player: 1 or 2
-const board = []; // array of rows, each row is array of cells  (board[y][x])
+let board = []; // array of rows, each row is array of cells  (board[y][x])
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -94,6 +94,11 @@ function placeInTable() {
 
 function endGame(msg) {
   // TODO: pop up alert message
+  // let gameBorder = document.getElementById("game");
+  // gameBorder.style.borderColor = randRGB();
+  // setInterval(function () {
+  //   gameBorder.style.borderColor = randRGB();
+  // }, 500);
   setTimeout(alert, 10, msg);
   // board = [];
 }
@@ -136,6 +141,16 @@ function handleClick(evt) {
     }
   }
   checkForTie();
+
+  if (currPlayer === 1) {
+    document.getElementById("game").style.backgroundColor = "blue";
+    document.getElementById("game").style.border = "blue solid 1.5vw";
+    document.querySelector(".turn").innerText = "PLAYER 2, YOUR TURN";
+  } else {
+    document.getElementById("game").style.backgroundColor = "red";
+    document.getElementById("game").style.border = "red solid 1.5vw";
+    document.querySelector(".turn").innerText = "PLAYER 1, YOUR TURN";
+  }
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -194,3 +209,49 @@ function checkForWin() {
 
 makeBoard();
 makeHtmlBoard();
+
+const randRGB = () => {
+  const r = Math.floor(Math.random() * 255);
+  const g = Math.floor(Math.random() * 255);
+  const b = Math.floor(Math.random() * 255);
+  return `rgb(${r},${g},${b})`;
+};
+// added design
+const letters = document.querySelectorAll(".letter");
+setInterval(function () {
+  for (let letter of letters) {
+    letter.style.color = randRGB();
+  }
+}, 1000);
+
+const btn = document.querySelector("button");
+btn.addEventListener("click", function () {
+  let gameBorder = document.getElementById("game");
+  gameBorder.style.borderColor = "red";
+  console.log("btn");
+  const htmlBoard = document.getElementById("board");
+  htmlBoard.innerHTML = "";
+  currPlayer = 2;
+  board = [];
+  makeBoard();
+  makeHtmlBoard();
+});
+
+btn.addEventListener("mousedown", function () {
+  btn.style.backgroundColor = "white";
+  btn.style.color = "red";
+  btn.style.borderColor = "red";
+  // background-color: rgb(255, 255, 255);
+  //   color: red;
+  //   border:red 2px solid;
+  // }
+});
+btn.addEventListener("mouseup", function () {
+  btn.style.backgroundColor = "red";
+  btn.style.color = "white";
+  btn.style.borderColor = "white";
+  // background-color: rgb(255, 255, 255);
+  //   color: red;
+  //   border:red 2px solid;
+  // }
+});
