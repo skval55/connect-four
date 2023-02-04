@@ -228,6 +228,8 @@ const btn = document.querySelector("button");
 btn.addEventListener("click", function () {
   let gameBorder = document.getElementById("game");
   gameBorder.style.borderColor = "red";
+  gameBorder.style.backgroundColor = "red";
+  document.querySelector(".turn").innerText = "PLAYER 1, YOUR TURN";
   console.log("btn");
   const htmlBoard = document.getElementById("board");
   htmlBoard.innerHTML = "";
