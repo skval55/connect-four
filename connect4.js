@@ -10,6 +10,7 @@ const HEIGHT = 6;
 
 let currPlayer = 2; // active player: 1 or 2
 let board = []; // array of rows, each row is array of cells  (board[y][x])
+let winningColor;
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -94,11 +95,14 @@ function placeInTable() {
 
 function endGame(msg) {
   // TODO: pop up alert message
-  // let gameBorder = document.getElementById("game");
+  let gameBorder = document.getElementById("game");
   // gameBorder.style.borderColor = randRGB();
-  // setInterval(function () {
-  //   gameBorder.style.borderColor = randRGB();
-  // }, 500);
+  winningColor = setInterval(function () {
+    gameBorder.style.borderColor = randRGB();
+  }, 500);
+  document.querySelector(
+    ".turn"
+  ).innerText = `PLAYER ${currPlayer} IS THE WINNER`;
   setTimeout(alert, 10, msg);
   // board = [];
 }
@@ -224,6 +228,7 @@ setInterval(function () {
   }
 }, 1000);
 
+// reset button
 const btn = document.querySelector("button");
 btn.addEventListener("click", function () {
   let gameBorder = document.getElementById("game");
@@ -237,6 +242,7 @@ btn.addEventListener("click", function () {
   board = [];
   makeBoard();
   makeHtmlBoard();
+  clearInterval(winningColor);
 });
 
 btn.addEventListener("mousedown", function () {
